@@ -34,9 +34,6 @@ jobs:
       matrix:
         manifest:
           - ${{ fromJson(needs.fingerprint_repo.outputs.fingerprint) }}
-  test_and_verify:
-    if: ${{ needs.fingerprint_repo.outputs.fingerprint != '' }}
-    needs: fingerprint_repo
     steps:
         # check out project
       - uses: actions/checkout@v2
