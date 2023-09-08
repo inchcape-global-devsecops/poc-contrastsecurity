@@ -21,6 +21,16 @@ jobs:
       # steps to build and run integration tests
       # - name: Run tests
       #
+      - name: Contrast SCA Action
+        uses: Contrast-Security-OSS/contrast-sca-action@v1
+        with:
+          apiKey: ${{ secrets.CONTRAST_API_KEY }}
+          orgId: ${{ secrets.CONTRAST_ORGANIZATION_ID }}
+          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
+          apiUrl: ${{ secrets.CONTRAST_API_URL }}
+          filePath: package.json
+          severity: medium
+          fail: true
       - name: Contrast Verify
         uses: Contrast-Security-OSS/integration-verify-github-action@main
         with:
@@ -31,3 +41,4 @@ jobs:
           appName: poc-contrastsecurity
           #appId: or app_uuid_here if known
           jobStartTime: "${{ steps.set-job-start-time.outputs.jobStartTime }}"
+  
