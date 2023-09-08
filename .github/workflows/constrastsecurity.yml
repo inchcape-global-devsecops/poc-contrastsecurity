@@ -1,0 +1,33 @@
+name: Test and Verify
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+jobs:
+  test_and_verify:
+    runs-on: ubuntu-latest
+    steps:
+        # check out project
+      - uses: actions/checkout@v2
+        # record start time so we can verify only newly found vulnerabilities
+      - name: Define job start time
+        run: |
+          import time
+          n = int(round(time.time() * 1000))
+          print(f"::set-output name=jobStartTime::{n}")
+        shell: python
+        id: set-job-start-time
+      # steps to build and run integration tests
+      # - name: Run tests
+      #
+      - name: Contrast Verify
+        uses: Contrast-Security-OSS/integration-verify-github-action@main
+        with:
+          apiKey: ${{ secrets.CONTRAST_API_KEY }}
+          orgId: F9F42FFB-5487-4BD1-9025-5A473C5EECFA
+          apiUrl: https://app.contrastsecurity.com
+          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
+          appName: poc-contrastsecurity
+          #appId: or app_uuid_here if known
+          jobStartTime: "${{ steps.set-job-start-time.outputs.jobStartTime }}"
