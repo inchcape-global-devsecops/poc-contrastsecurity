@@ -58,7 +58,7 @@ jobs:
           filePath: ${{ matrix.manifest.filePath }}
           severity: medium
           fail: true
-  analyze_dependencies:
+  analyze_code:
     runs-on: ubuntu-22.04
     steps:
       - name: Create ZIP Archive
