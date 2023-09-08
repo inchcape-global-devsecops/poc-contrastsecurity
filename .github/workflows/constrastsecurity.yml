@@ -25,7 +25,7 @@ jobs:
         uses: Contrast-Security-OSS/integration-verify-github-action@main
         with:
           apiKey: ${{ secrets.CONTRAST_API_KEY }}
-          orgId: F9F42FFB-5487-4BD1-9025-5A473C5EECFA
+          orgId: f9f42ffb-5487-4bd1-9025-5a473c5eecfa
           apiUrl: https://app.contrastsecurity.com
           authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
           appName: poc-contrastsecurity
