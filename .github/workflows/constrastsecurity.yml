@@ -58,13 +58,25 @@ jobs:
           filePath: ${{ matrix.manifest.filePath }}
           severity: medium
           fail: true
+  analyze_dependencies:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create ZIP Archive
+        run: |
+          # Replace 'output.zip' with your desired archive name
+          zip -r output.zip .
+        working-directory: ${{ github.workspace }}
       - name: Contrast Verify
         uses: Contrast-Security-OSS/integration-verify-github-action@main
         with:
+          artifact: output.zip
           apiKey: ${{ secrets.CONTRAST_API_KEY }}
-          orgId: f9f42ffb-5487-4bd1-9025-5a473c5eecfa
-          apiUrl: https://cs002.contrastsecurity.com/Contrast
+          orgId: ${{ secrets.CONTRAST_ORGANIZATION_ID }}
+          apiUrl: ${{ secrets.CONTRAST_API_URL }}
           authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
-          appName: poc-contrastsecurity
-          #appId: or app_uuid_here if known
-          jobStartTime: "${{ steps.set-job-start-time.outputs.jobStartTime }}"
+          severity: high
+          fail: true
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
