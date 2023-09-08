@@ -61,9 +61,10 @@ jobs:
   analyze_code:
     runs-on: ubuntu-22.04
     steps:
+      - name: Install zip
+        run: sudo apt-get install zip
       - name: Create ZIP Archive
         run: |
-          # Replace 'output.zip' with your desired archive name
           zip -r output.zip .
         working-directory: ${{ github.workspace }}
       - name: Contrast Verify
