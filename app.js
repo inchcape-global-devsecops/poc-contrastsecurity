@@ -1,9 +1,12 @@
-// Declaración de variables
-const nombre = "Juan";
-const edad = 30;
-const ciudad = "Ejemploville";
+const http = require('http');
+const port = process.env.PORT || 3000;
 
-// Imprimir las variables en la consola
-console.log("Nombre:", nombre);
-console.log("Edad:", edad);
-console.log("Ciudad:", ciudad);
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  const msg = 'Hello Node!\n'
+  res.end(msg);
+});
+
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}/`);
+});
