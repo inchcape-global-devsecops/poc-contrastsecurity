@@ -26,7 +26,7 @@ jobs:
         with:
           apiKey: ${{ secrets.CONTRAST_API_KEY }}
           orgId: f9f42ffb-5487-4bd1-9025-5a473c5eecfa
-          apiUrl: https://app.contrastsecurity.com
+          apiUrl: https://cs002.contrastsecurity.com/Contrast
           authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
           appName: poc-contrastsecurity
           #appId: or app_uuid_here if known
