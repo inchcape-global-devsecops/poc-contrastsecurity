@@ -35,7 +35,8 @@ jobs:
         manifest:
           - ${{ fromJson(needs.fingerprint_repo.outputs.fingerprint) }}
   test_and_verify:
-    runs-on: ubuntu-latest
+    if: ${{ needs.fingerprint_repo.outputs.fingerprint != '' }}
+    needs: fingerprint_repo
     steps:
         # check out project
       - uses: actions/checkout@v2
