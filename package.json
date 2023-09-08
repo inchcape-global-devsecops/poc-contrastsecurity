@@ -6,6 +6,5 @@
   "scripts": {
     "start": "node app.js"
   },
-  "keywords": [],
   "author": ""
 }
