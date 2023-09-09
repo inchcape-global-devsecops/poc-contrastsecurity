@@ -65,7 +65,7 @@ jobs:
         run: sudo apt-get install zip
       - name: Create ZIP Archive
         run: |
-          ls
+          ls -la
           zip -r output.zip . -x ".git/*" ".github/*"
         working-directory: ${{ github.workspace }}
       - name: Contrast Verify
