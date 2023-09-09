@@ -65,12 +65,7 @@ jobs:
         run: sudo apt-get install zip
       - name: Create ZIP Archive
         run: |
-          # Navigate into the repository directory
-          cd ${{ github.workspace }}
-          ls
-          # Replace 'my-repo.zip' with your desired archive name
-          # You can also specify a different directory to zip if needed
-          zip output.zip . -r  -x ".git/*" ".github/*"
+          zip -r output.zip . -x ".git/*" ".github/*"
         working-directory: ${{ github.workspace }}
       - name: Contrast Verify
         uses: Contrast-Security-OSS/integration-verify-github-action@main
