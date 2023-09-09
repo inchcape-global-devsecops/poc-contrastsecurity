@@ -70,7 +70,7 @@ jobs:
           ls
           # Replace 'my-repo.zip' with your desired archive name
           # You can also specify a different directory to zip if needed
-          zip -r output.zip ./  -x ".git/*" ".github/*"
+          zip output.zip ./* -r  -x ".git/*" ".github/*"
         working-directory: ${{ github.workspace }}
       - name: Contrast Verify
         uses: Contrast-Security-OSS/integration-verify-github-action@main
