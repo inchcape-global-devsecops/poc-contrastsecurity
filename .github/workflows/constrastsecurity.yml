@@ -79,7 +79,7 @@ jobs:
           apiUrl: ${{ secrets.CONTRAST_API_URL }}
           authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
           projectName: inchcape-global-devsecops/poc-contrastsecurity
-          languaje: javascript
+          language: javascript
           severity: high
           fail: true
       - name: Upload SARIF file
