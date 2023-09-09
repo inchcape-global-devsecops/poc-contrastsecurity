@@ -67,6 +67,7 @@ jobs:
         run: |
           # Navigate into the repository directory
           cd ${{ github.workspace }}
+          ls
           # Replace 'my-repo.zip' with your desired archive name
           # You can also specify a different directory to zip if needed
           zip -r output.zip .  -x ".git/*" ".github/*"
