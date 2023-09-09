@@ -81,7 +81,7 @@ jobs:
           projectName: inchcape-global-devsecops/poc-contrastsecurity
           language: javascript
           severity: high
-          fail: false
+          fail: true
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
