@@ -70,8 +70,8 @@ jobs:
           ls -la
           zip -r output.zip . -x ".git/*" ".github/*"
         working-directory: ${{ github.workspace }}
-      - name: Contrast Verify
-        uses: Contrast-Security-OSS/integration-verify-github-action@main
+      - name: Contrast  Scan Action
+        uses: Contrast-Security-OSS/contrastscan-action@v2.0.3
         with:
           artifact: output.zip
           apiKey: ${{ secrets.CONTRAST_API_KEY }}
