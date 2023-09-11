@@ -18,9 +18,12 @@ jobs:
       - name: Install Linguist
         run: gem install github-linguist
       - name: Detect Repository Language
-        run: github-linguist
+        id: linguist
+        run: |
+          language=$(github-linguist)
+          echo "::set-output name=language::$language"
       - name: Display Detected Language
-        run: echo "The detected primary language is ${{ steps.detect-language.outputs.primary_language }}"
+        run: echo "The detected primary language is ${{ steps.linguist.outputs.language }}"
   fingerprint_repo:
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-22.04
