@@ -60,6 +60,12 @@ jobs:
           fail: true
   analyze_code:
     runs-on: ubuntu-22.04
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
