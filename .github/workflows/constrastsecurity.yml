@@ -20,7 +20,7 @@ jobs:
       - name: Detect Repository Language
         id: linguist
         run: |
-          language=$(github-linguist)
+          language=$(github-linguist | grep -oP '\d+\.\d+% \d+\s+\K\S+')
           echo "::set-output name=language::$language"
       - name: Display Detected Language
         run: echo "The detected primary language is ${{ steps.linguist.outputs.language }}"
