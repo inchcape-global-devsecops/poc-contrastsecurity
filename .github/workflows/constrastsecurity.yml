@@ -5,6 +5,21 @@ on:
       - master
     pull_request:
 jobs:
+  detect-language:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.x  # Linguist requires Ruby
+      - name: Install Linguist
+        run: gem install github-linguist
+      - name: Detect Repository Language
+        run: github-linguist
+      - name: Display Detected Language
+        run: echo "The detected primary language is ${{ steps.detect-language.outputs.primary_language }}"
   fingerprint_repo:
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-22.04
