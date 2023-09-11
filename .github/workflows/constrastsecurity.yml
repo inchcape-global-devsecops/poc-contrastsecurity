@@ -75,14 +75,17 @@ jobs:
         uses: Contrast-Security-OSS/contrastscan-action@v2.0.3
         with:
           artifact: output.zip
-          apiKey: ${{ secrets.CONTRAST_API_KEY }}
-          orgId: ${{ secrets.CONTRAST_ORGANIZATION_ID }}
-          apiUrl: ${{ secrets.CONTRAST_API_URL }}
-          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
+          apiKey: ${{ secrets.CONTRAST_API_KEY_2 }}
+          orgId: ${{ vars.CONTRAST_GITHUB_APP_ORG_ID }}
+          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER_2 }}
+          apiUrl: ${{ vars.CONTRAST_GITHUB_APP_TS_URL }}
           projectName: inchcape-global-devsecops/poc-contrastsecurity
           language: javascript
           severity: high
           fail: true
+      - name: Log
+        run: |
+          ls -la
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
