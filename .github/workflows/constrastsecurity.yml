@@ -13,7 +13,7 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.x  # Linguist requires Ruby
+          ruby-version: 2.2  # Linguist requires Ruby
       - name: Install Linguist
         run: gem install github-linguist
       - name: Detect Repository Language
