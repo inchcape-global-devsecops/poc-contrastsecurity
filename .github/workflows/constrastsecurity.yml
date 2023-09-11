@@ -21,9 +21,10 @@ jobs:
         id: linguist
         run: |
           language=$(github-linguist | grep -oP '\d+\.\d+% \d+\s+\K\S+')
-          echo "::set-output name=language::$language"
+          echo "LANGUAGE_REPOSITORY=$language" >> $GITHUB_ENV
+
       - name: Display Detected Language
-        run: echo "The detected primary language is ${{ steps.linguist.outputs.language }}"
+        run: echo "The detected primary language is $LANGUAGE_REPOSITORY"
   fingerprint_repo:
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-22.04
@@ -34,8 +35,8 @@ jobs:
         id: fingerprint
         uses: 'Contrast-Security-OSS/contrast-sca-action@v2'
         with:
-          apiKey: ${{ secrets.CONTRAST_GITHUB_APP_API_KEY }}
-          authHeader: ${{ secrets.CONTRAST_GITHUB_APP_AUTH_HEADER }}
+          apiKey: ${{ secrets.CONTRAST_API_KEY_2 }}
+          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER_2 }}
           orgId: ${{ vars.CONTRAST_GITHUB_APP_ORG_ID }}
           apiUrl: ${{ vars.CONTRAST_GITHUB_APP_TS_URL }}
           repoUrl: ${{ github.server_url }}/${{ github.repository }}
