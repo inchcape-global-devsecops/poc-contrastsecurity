@@ -86,6 +86,7 @@ jobs:
       - name: Log
         run: |
           ls -la
+          cat results.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
