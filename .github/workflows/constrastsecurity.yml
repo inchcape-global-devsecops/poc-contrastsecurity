@@ -70,7 +70,7 @@ jobs:
           ls -la
           zip -r output.zip . -x ".git/*" ".github/*"
           ls -la
-        working-directory: ${{ github.workspace }}
+        # working-directory: ${{ github.workspace }}
       - name: Contrast  Scan Action
         uses: Contrast-Security-OSS/contrastscan-action@v2.0.3
         with:
