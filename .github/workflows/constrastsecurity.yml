@@ -25,49 +25,12 @@ jobs:
 
       - name: Display Detected Language
         run: echo "The detected primary language is $LANGUAGE_REPOSITORY"
-  fingerprint_repo:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
-      - name: Run Contrast SCA Fingerprint
-        id: fingerprint
-        uses: 'Contrast-Security-OSS/contrast-sca-action@v2'
-        with:
-          apiKey: ${{ secrets.CONTRAST_API_KEY_2 }}
-          authHeader: ${{ secrets.CONTRAST_AUTH_HEADER_2 }}
-          orgId: ${{ vars.CONTRAST_GITHUB_APP_ORG_ID }}
-          apiUrl: ${{ vars.CONTRAST_GITHUB_APP_TS_URL }}
-          repoUrl: ${{ github.server_url }}/${{ github.repository }}
-          repoName: ${{ github.repository }}
-          externalId: ${{ vars.CONTRAST_GITHUB_APP_ID }}
-          command: fingerprint
-    outputs:
-      fingerprint: ${{ steps.fingerprint.outputs.fingerprint }}
   analyze_dependencies:
-    if: ${{ needs.fingerprint_repo.outputs.fingerprint != '' }}
-    needs: fingerprint_repo
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        manifest:
-          - ${{ fromJson(needs.fingerprint_repo.outputs.fingerprint) }}
+    runs-on: ubuntu-latest
     steps:
         # check out project
       - uses: actions/checkout@v2
         # record start time so we can verify only newly found vulnerabilities
-      - name: Define job start time
-        run: |
-          import time
-          n = int(round(time.time() * 1000))
-          print(f"::set-output name=jobStartTime::{n}")
-        shell: python
-        id: set-job-start-time
-      # steps to build and run integration tests
-      # - name: Run tests
-      #
       - name: Contrast SCA Action
         uses: Contrast-Security-OSS/contrast-sca-action@v1
         with:
@@ -75,7 +38,7 @@ jobs:
           orgId: ${{ secrets.CONTRAST_ORGANIZATION_ID }}
           authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
           apiUrl: ${{ secrets.CONTRAST_API_URL }}
-          filePath: ${{ matrix.manifest.filePath }}
+          filePath: ./
           severity: medium
           fail: true
   analyze_code:
